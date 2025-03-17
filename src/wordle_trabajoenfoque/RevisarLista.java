@@ -22,14 +22,15 @@ public class RevisarLista {
   
 
     public static void main(String[] args) {
-          File archivo = new File("/Users/mariogarsia/Desktop/Ejercicios_Java_MEDAC/Wordle_TrabajoEnfoque/Archivos/ListaPalabras.txt");
+   //VARIABLES 
+        File archivo = new File("/Users/mariogarsia/Desktop/Ejercicios_Java_MEDAC/Wordle_TrabajoEnfoque/Archivos/ListaPalabras.txt");
         FileReader fr = null;
         BufferedReader br = null;
         ArrayList <String> p = new ArrayList<>();
         
-    
+   //BLOQUE TRY 1 (LEE EL ARCHIVO) 
         try{
-     fr = new FileReader(archivo);
+        fr = new FileReader(archivo);
         br = new BufferedReader(fr);
     
 }catch (FileNotFoundException FnE){
@@ -37,21 +38,35 @@ public class RevisarLista {
 }
         String linea; 
         
+        
+  //BLOQUE TRY 2 (AÑADE LÍNEAS MEDIANTE LA VARIABLE "linea" A LA ARRAYLIST "p")
+        boolean correctas = true;
+        int n_linea = 1;
       try{
           while ((linea = br.readLine()) != null){
               p.add(linea);
+              
+              if ((linea.length()) > 5 || (linea.length()) < 5){
+                       System.err.println("Palabra con longitud érronea.");
+                       System.err.println("La palabra es: " + linea + " y esta en la línea: " + n_linea);
+                       correctas = false;
+                   } 
+              n_linea ++;
           }
       } catch (IOException IoE) {
           System.err.println(IoE.getMessage());
       }
       
-        System.out.println(p.size());
-        
+      //MENSAJES DE CONFIRMACIÓN
+      if (correctas == true){
+          System.out.println("Todas las palabras tienen una longitud correcta.");
+      } 
+      if (p.size() == 100){
+          System.out.println("En la lista hay un total de: " + p.size() + " palabras.");
+      } else {
+          System.err.println("El número de palabras de la lista no es correcto. Hay: " + p.size());
+      }
+       
     }
-    
-    
-   
-    
-    
     
 }
